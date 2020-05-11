@@ -38,6 +38,34 @@ $(document).ready(function () {
         }
     });
 
+
+
+    // Smooth scroll for the menu and links with .scrollto classes
+    $('.main-nav a, .mobile-nav a, .scrollto').on('click', function () {
+        if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
+            var target = $(this.hash);
+            if (target.length) {
+                var top_space = 50;
+
+                $('html, body').animate({
+                    scrollTop: target.offset().top - top_space
+                }, 800, 'easeInOutExpo');
+
+                if ($(this).parents('.nav-menu').length) {
+                    $('.nav-menu .menu-active').removeClass('menu-active');
+                    $(this).closest('li').addClass('menu-active');
+                }
+
+                if ($('body').hasClass('mobile-nav-active')) {
+                    $('body').removeClass('mobile-nav-active');
+                    $('.mobile-nav-toggle i').toggleClass('ion-android-close ion-android-menu');
+                    $('.mobile-nav-overly').fadeOut();
+                }
+                return false;
+            }
+        }
+    });
+
     //Replace carousel images into background images.
     $('img.imgBG').each(function () {
         var imgSrc = $(this).attr('src');
